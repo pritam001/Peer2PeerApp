@@ -33,11 +33,17 @@ To have ability for employee or manager to raise peer to peer review feedback re
 2. Download https://github.com/pritam001/Peer2PeerApp/ and save it locally.
 3. Install MongoDB, run ``$ mongod`` and create a database (for e.g. "medlife_p2p") and edit the `src/main/resources/application.properties` file to connect to Mongo database.
 >
+
 > #application.properties
+
 > #mongodb
+
 > spring.data.mongodb.host=localhost
+
 > spring.data.mongodb.port=27017
+
 > spring.data.mongodb.database=medlife_p2p
+
 >
 
 ```sh
@@ -56,20 +62,35 @@ switched to db medlife_p2p
 5. [Create a Google API Console project and client ID](https://developers.google.com/identity/sign-in/web/devconsole-project). Add Client ID and Client Secret to `src/main/resources/application.yml` file for Google authentication. Alternatively, remove the `application.yml` file and `ApplicationSecurity.java` to remove authentication.
 
 > #indentation matters!
+
 > security:
+
 >    oauth2:
+
 >        client:
+
 >            clientId: your-client-id.apps.googleusercontent.com
+
 >            clientSecret: your-client-secret
+
 >            accessTokenUri: https://www.googleapis.com/oauth2/v3/token
+
 >            userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
+
 >            tokenName: oauth_token
+
 >            authenticationScheme: query
+
 >            clientAuthenticationScheme: form
+
 >            scope: profile
+
 >        resource:
+
 >            userInfoUri: https://www.googleapis.com/userinfo/v2/me
+
 >            preferTokenInfo: false
+
 > 
 
 6. Run `ApplicationStarter.java` as Java Application in Spring Tool Suite.
