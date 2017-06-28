@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login : P2P Application</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css">
+    
+</head>
+<body>
+	<div class="container">
+		<h2 class="text-center">Peer to Peer & Kudos Application</h2>
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<br/> <br/>
+				<form>
+					<div class="form-group">
+						<label for="ename">Employee Name:</label>
+						<input type="ename" class="form-control" id="ename">
+					</div>
+					
+					<button type="button" class="btn btn-primary btn-block" onclick="loginCheck()">Submit</button>
+					
+				</form> 
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+		 
+	</div>
+	
+<script type="text/javascript">
+	function loginCheck(){
+		toastr.warning("Logging in...");
+		$.ajax({
+			url : "http://localhost:8080/api/employees/search/findByEName?name="+document.getElementById("ename").value,
+			success: function(result) {
+				toastr.success("Employee found.");
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				toastr.error("Employee not found!");
+				toastr.error(xhr.responseJSON.message);
+			}
+		}).then(function(data){
+			toastr.success(data._links.self.href.toString());
+			toastr.success("Setting Cookie...");
+			document.cookie = "employee_href=" + data._links.self.href.toString() + "; path=/";
+			toastr.warning(document.cookie);
+			setTimeout(function() { gotoHomepage(); }, 2000);
+		});
+	}
+	
+	function gotoHomepage(){
+		window.location = "http://localhost:8080/";
+	}
+</script>
+
+
+</body>
+</html>
