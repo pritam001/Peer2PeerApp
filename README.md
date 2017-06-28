@@ -3,7 +3,6 @@ Peer to Peer Review and Kudos Platform
 
 
 
-
 ### `Problem Statement :`
 To have ability for employee or manager to raise peer to peer review feedback request and manager gets feedbacks in the space to have effective quarterly and annual reviews with the employee. To have Kudos platform for employees.
 
@@ -27,5 +26,53 @@ To have ability for employee or manager to raise peer to peer review feedback re
 | Toastr | toastr is a Javascript library for non-blocking notifications. jQuery is required. | https://github.com/CodeSeven/toastr
 | Bootstrap 3 | Bootstrap, a sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development. | http://getbootstrap.com/getting-started/
 | MDL | A front-end template that helps you build fast, modern mobile web apps. | https://getmdl.io/started/index.html
+
+
+### `Usage Instructions:`
+1. Download and install [Spring Tool Suite](https://spring.io/tools/sts/all) 
+2. Download https://github.com/pritam001/Peer2PeerApp/ and save it locally.
+3. Install MongoDB, run ``$ mongod`` and create a database (for e.g. "medlife_p2p") and edit the `src/main/resources/application.properties` file to connect to Mongo database.
+>
+> #application.properties
+> #mongodb
+> spring.data.mongodb.host=localhost
+> spring.data.mongodb.port=27017
+> spring.data.mongodb.database=medlife_p2p
+>
+
+```sh
+$ mongo
+MongoDB shell version v3.4.4
+connecting to: mongodb://127.0.0.1:27017
+MongoDB server version: 3.4.4
+> show dbs
+admin        0.078GB
+local        0.078GB
+> use medlife_p2p
+switched to db medlife_p2p
+```
+
+4. Open Peer2PeerApp folder using Spring Tool Suite using *"Import Maven Project"* option.
+5. [Create a Google API Console project and client ID](https://developers.google.com/identity/sign-in/web/devconsole-project). Add Client ID and Client Secret to `src/main/resources/application.yml` file for Google authentication. Alternatively, remove the `application.yml` file and `ApplicationSecurity.java` to remove authentication.
+
+> #indentation matters!
+> security:
+>    oauth2:
+>        client:
+>            clientId: your-client-id.apps.googleusercontent.com
+>            clientSecret: your-client-secret
+>            accessTokenUri: https://www.googleapis.com/oauth2/v3/token
+>            userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
+>            tokenName: oauth_token
+>            authenticationScheme: query
+>            clientAuthenticationScheme: form
+>            scope: profile
+>        resource:
+>            userInfoUri: https://www.googleapis.com/userinfo/v2/me
+>            preferTokenInfo: false
+> 
+
+6. Run `ApplicationStarter.java` as Java Application in Spring Tool Suite.
+7. Open http://localhost:8080/cookielogin/ to start application.
 
 
