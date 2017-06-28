@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>P2P Application</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.3/toastr.min.css">
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/css/selectize.default.css">
+    
+	
+    <style>
+    
+    .well {background-color:#eeeeee;}
+    body {background-color:#f9f9f9;}
+    </style>
+</head>
+<body>
+	<div class="container">
+		<h2 class="text-center"><mark>Peer to Peer & Kudos Application</mark></h2>
+		<br/>
+		<div class="row">
+			<div class="panel-group">
+				<div class="panel panel-info">
+					<div class="panel-heading text-center">Employee Profile</div>
+					<div class="panel-body">
+					
+						<div id="ReactProfile">
+							Loading . . .
+						</div>
+						
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="panel-group">
+				<div class="panel panel-primary">
+					<div class="panel-heading text-center">Feedbacks</div>
+					<div class="panel-body">
+					
+						<div class="well">
+							<ul class="nav nav-tabs nav-justified">
+							  <li class="active"><a data-toggle="tab" href="#pendingfeedbacks">Pending Feedbacks</a></li>
+							  <li><a data-toggle="tab" href="#sentfeedbacks">Sent Feedbacks</a></li>
+							</ul>
+							
+							<div class="tab-content">
+							  <div id="pendingfeedbacks" class="tab-pane fade in active">
+							  
+								<div id="ReactPendingFeedbacks"></div>
+								
+							  </div>
+							  <div id="sentfeedbacks" class="tab-pane fade">
+							    
+							    <div id="ReactSentFeedbacks"></div>
+							    
+							  </div>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+
+			</div>
+			
+		</div>
+		
+		<div class="row">
+			<div class="panel-group">
+				<div class="panel panel-warning">
+					<div class="panel-heading text-center">Feedback Requests</div>
+					<div class="panel-body">
+					
+						<div class="well">
+							<ul class="nav nav-pills nav-justified">
+							  <li class="active"><a data-toggle="tab" href="/request" onclick="loadRequestPage()">Send Feedback Request</a></li>
+							  <li><a data-toggle="tab" href="#pendingapprovals">Pending Approvals&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-danger">* Manager Only</span></a></li>
+							</ul>
+							
+							<div class="tab-content">
+							  <div id="#pendingapprovals" class="tab-pane fade in active">
+							  
+								<div id="ReactPendingApprovals"></div>
+								
+							  </div>
+							  
+							</div>
+						</div>
+					
+					</div>
+				</div>
+
+			</div>
+			
+		</div>
+		
+		<div class="row">
+			<div class="panel-group">
+				<div class="panel panel-danger">
+					<div class="panel-heading text-center">Feedback Viewer&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-danger">* Manager Only</span></div>
+					<div class="panel-body">
+					
+						<div class="well">
+							<ul class="nav nav-tabs nav-justified">
+							  <li class="active"><a data-toggle="tab" href="#viewfeedbacks">View Feedbacks Received By Team</a></li>
+							  <li><a data-toggle="tab" href="#searchfeedbacks">Employee Feedback Search</a></li>
+							</ul>
+							
+							<div class="tab-content">
+							  <div id="viewfeedbacks" class="tab-pane fade in active">
+							  
+								<div id="ReactFeedbacksReceivedByTeam"></div>
+								
+							  </div>
+							  <div id="searchfeedbacks" class="tab-pane fade">
+							    
+							    <div id="ReactSearchFeedbacks"></div>
+							    
+							  </div>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+
+			</div>
+			
+		</div>
+		
+		<div class="row">
+			<div class="panel-group">
+				<div class="panel panel-primary">
+					<div class="panel-heading text-center">Kudos Platform</div>
+					<div class="panel-body">
+					
+						<div class="well">
+							<ul class="nav nav-tabs nav-justified">
+							  <li class="active"><a data-toggle="tab" href="#sendkudos">Send Kudos</a></li>
+							  <li><a data-toggle="tab" href="#receivedkudos">Received Kudos</a></li>
+							  <li><a data-toggle="tab" href="#sentkudos">Sent Kudos</a></li>
+							  <li><a data-toggle="tab" href="#consolidatedkudos">Consolidated Kudos&nbsp;&nbsp;&nbsp;&nbsp;<span class="label label-danger">* Manager Only</span></a></li>
+							</ul>
+							
+							<div class="tab-content">
+							  <div id="sendkudos" class="tab-pane fade in active">
+							  
+								<div id="ReactSendKudos"></div>
+								
+							  </div>
+							  <div id="receivedkudos" class="tab-pane fade">
+							    
+							    <div id="ReactReceivedKudos"></div>
+							    
+							  </div>
+							  <div id="sentkudos" class="tab-pane fade">
+							    
+							    <div id="ReactSentKudos"></div>
+							    
+							  </div>
+							  <div id="consolidatedkudos" class="tab-pane fade">
+							    <h3>Kudos Received by Team</h3>
+							    <div id="ReactConsolidatedKudosReceived"></div>
+							    <h3>Kudos Sent by Team</h3>
+							    <div id="ReactConsolidatedKudosSent"></div>
+							    
+							  </div>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+
+			</div>
+			
+		</div>
+		
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<br/> <br/>
+				<form>
+					
+					<button type="button" class="btn btn-primary btn-block" onclick="loginCheck()">Check login cookie</button>
+					<br/> <br/>
+					<button type="button" class="btn btn-danger btn-block" onclick="logout()">Log out!</button>
+					
+				</form> 
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+		 
+	</div>
+	
+<script type="text/javascript">
+	function loadprofile(){
+		
+	}
+	
+	function loadRequestPage(){
+		document.cookie = "request_id=null; path=/";
+		window.location = "http://localhost:8080/request";
+	}
+
+	function loginCheck(){
+		toastr.success(document.cookie);
+	}
+	
+	function logout(){
+		window.location = "http://localhost:8080/cookielogin";
+	}
+</script>
+
+<script src="https://fb.me/react-15.0.1.js"></script>
+<script src="https://fb.me/react-dom-15.0.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+<script type="text/babel" src="/public/employee.js"></script>
+
+<script type="text/babel" src="/public/manager.js"></script>
+
+<script type="text/babel" src="/public/kudos.js"></script>
+
+</body>
+</html>
